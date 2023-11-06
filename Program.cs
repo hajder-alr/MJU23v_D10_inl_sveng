@@ -27,13 +27,13 @@
                 string command = argument[0];
                 if (command == "quit")
                 {
-                    Console.WriteLine("Goodbye!");
+                    Console.WriteLine("Goodbye!"); // NYI: Make sure program exits
                 }
                 else if (command == "load")
                 {
                     if(argument.Length == 2)
                     {
-                        using (StreamReader sr = new StreamReader(argument[1]))
+                        using (StreamReader sr = new StreamReader(argument[1])) // FIXME: System.IO.FileNotFoundException if invalid path
                         {
                             dictionary = new List<SweEngGloss>(); // Empty it!
                             string line = sr.ReadLine();
@@ -62,12 +62,12 @@
                 }
                 else if (command == "list")
                 {
-                    foreach(SweEngGloss gloss in dictionary)
+                    foreach(SweEngGloss gloss in dictionary) // FIXME: Add error handling if dictionary is null
                     {
                         Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
                     }
                 }
-                else if (command == "new")
+                else if (command == "new") // FIXME: Add error handling if dictionary is null
                 {
                     if (argument.Length == 3)
                     {
@@ -101,13 +101,13 @@
                         Console.Write("Write word in English: ");
                         string e = Console.ReadLine();
                         int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++)
+                        for (int i = 0; i < dictionary.Count; i++) // FIXME: Add error handling if dictionary is null
                         {
                             SweEngGloss gloss = dictionary[i];
                             if (gloss.word_swe == s && gloss.word_eng == e)
                                 index = i;
                         }
-                        dictionary.RemoveAt(index);
+                        dictionary.RemoveAt(index); // FIXME: Add error handling for trying to remove nonexistant word
                     }
                 }
                 else if (command == "translate")
