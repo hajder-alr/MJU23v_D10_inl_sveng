@@ -135,6 +135,16 @@
                         }
                     }
                 }
+                else if (command == "help")
+                {
+                    Console.WriteLine("Available commands:");
+                    Console.WriteLine(" translate - translate word");
+                    Console.WriteLine(" load - load dictionary");
+                    Console.WriteLine(" delete - delete word from dictionary");
+                    Console.WriteLine(" new - add new word to dictionary");
+                    Console.WriteLine(" list - list all words in dictionary");
+                    Console.WriteLine(" quit - exit program");
+                }
                 else
                 {
                     Console.WriteLine($"Unknown command: '{command}'");
