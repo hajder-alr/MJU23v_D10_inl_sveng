@@ -74,6 +74,44 @@
                     dictionary.Add(new SweEngGloss(sweWord, engWord));
                 }
             }
+            public static void DeleteWord(string[] argument)
+            {
+                if (dictionary == null)
+                {
+                    Console.WriteLine("Error: Dictionary is empty, please load a dictionary using 'load'");
+                    return;
+                }
+                if (argument.Length == 3)
+                {
+                    int index = -1;
+                    for (int i = 0; i < dictionary.Count; i++)
+                    {
+                        SweEngGloss gloss = dictionary[i];
+                        if (gloss.word_swe == argument[1] && gloss.word_eng == argument[2])
+                        {
+                            index = i;
+                            dictionary.RemoveAt(index); // TODO: Output message if user tries to remove invalid word
+                        }
+                    }
+                }
+                else if (argument.Length == 1)
+                {
+                    Console.WriteLine("Write word in Swedish: ");
+                    string sweWord = Console.ReadLine();
+                    Console.Write("Write word in English: ");
+                    string engWord = Console.ReadLine();
+                    int index = -1;
+                    for (int i = 0; i < dictionary.Count; i++)
+                    {
+                        SweEngGloss gloss = dictionary[i];
+                        if (gloss.word_swe == sweWord && gloss.word_eng == engWord)
+                        {
+                            index = i;
+                            dictionary.RemoveAt(index); // TODO: Output message if user tries to remove invalid word
+                        }
+                    }
+                }
+            }
         }
         static void Main(string[] args)
         {
@@ -111,40 +149,7 @@
                 }
                 else if (command == "delete")
                 {
-                    if (dictionary == null)
-                    {
-                        Console.WriteLine("Error: Dictionary is empty, please load a dictionary using 'load'");
-                        continue;
-                    }
-                    if (argument.Length == 3)
-                    {
-                        int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++) {
-                            SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == argument[1] && gloss.word_eng == argument[2])
-                            {
-                                index = i;
-                                dictionary.RemoveAt(index); // TODO: Output message if user tries to remove invalid word
-                            }
-                        }
-                    }
-                    else if (argument.Length == 1)
-                    {
-                        Console.WriteLine("Write word in Swedish: ");
-                        string sweWord = Console.ReadLine();
-                        Console.Write("Write word in English: ");
-                        string engWord = Console.ReadLine();
-                        int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++)
-                        {
-                            SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == sweWord && gloss.word_eng == engWord)
-                            {
-                                index = i;
-                                dictionary.RemoveAt(index); // TODO: Output message if user tries to remove invalid word
-                            }
-                        }
-                    }
+                    SweEngGloss.DeleteWord(argument);
                 }
                 else if (command == "translate")
                 {
