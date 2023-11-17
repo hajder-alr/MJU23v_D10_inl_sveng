@@ -53,6 +53,27 @@
                     }
                 }
             }
+
+            public static void NewWord(string[] argument)
+            {
+                if (dictionary == null)
+                {
+                    Console.WriteLine("Error: Dictionary is empty, please load a dictionary using 'load'");
+                    return;
+                }
+                if (argument.Length == 3)
+                {
+                    dictionary.Add(new SweEngGloss(argument[1], argument[2]));
+                }
+                else if (argument.Length == 1)
+                {
+                    Console.WriteLine("Write word in Swedish: ");
+                    string sweWord = Console.ReadLine();
+                    Console.Write("Write word in English: ");
+                    string engWord = Console.ReadLine();
+                    dictionary.Add(new SweEngGloss(sweWord, engWord));
+                }
+            }
         }
         static void Main(string[] args)
         {
@@ -86,23 +107,7 @@
                 }
                 else if (command == "new")
                 {
-                    if (dictionary == null)
-                    {
-                        Console.WriteLine("Error: Dictionary is empty, please load a dictionary using 'load'");
-                        continue;
-                    }
-                    if (argument.Length == 3)
-                    {
-                        dictionary.Add(new SweEngGloss(argument[1], argument[2]));
-                    }
-                    else if(argument.Length == 1)
-                    {
-                        Console.WriteLine("Write word in Swedish: ");
-                        string sweWord = Console.ReadLine();
-                        Console.Write("Write word in English: ");
-                        string engWord = Console.ReadLine();
-                        dictionary.Add(new SweEngGloss(sweWord, engWord));
-                    }
+                    SweEngGloss.NewWord(argument);
                 }
                 else if (command == "delete")
                 {
