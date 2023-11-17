@@ -142,6 +142,18 @@
                     }
                 }
             }
+            public static void ListDictionary(string[] argument)
+            {
+                if (dictionary == null)
+                {
+                    Console.WriteLine("Error: Dictionary is empty, please load a dictionary using 'load'");
+                    return;
+                }
+                foreach (SweEngGloss gloss in dictionary)
+                {
+                    Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
+                }
+            }
         }
         static void Main(string[] args)
         {
@@ -155,7 +167,7 @@
                 command = argument[0];
                 if (command == "quit")
                 {
-                    Console.WriteLine("Goodbye!"); // NYI: Make sure program exits
+                    Console.WriteLine("Goodbye!");
                 }
                 else if (command == "load")
                 {
@@ -163,15 +175,7 @@
                 }
                 else if (command == "list")
                 {
-                    if (dictionary == null)
-                    {
-                        Console.WriteLine("Error: Dictionary is empty, please load a dictionary using 'load'");
-                        continue;
-                    }
-                    foreach(SweEngGloss gloss in dictionary)
-                    {
-                        Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
-                    }
+                    SweEngGloss.ListDictionary(argument);
                 }
                 else if (command == "new")
                 {
