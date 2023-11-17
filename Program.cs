@@ -105,9 +105,11 @@
                         for (int i = 0; i < dictionary.Count; i++) {
                             SweEngGloss gloss = dictionary[i];
                             if (gloss.word_swe == argument[1] && gloss.word_eng == argument[2])
+                            {
                                 index = i;
+                                dictionary.RemoveAt(index); // TODO: Output message if user tries to remove invalid word
+                            }
                         }
-                        dictionary.RemoveAt(index);
                     }
                     else if (argument.Length == 1)
                     {
@@ -120,9 +122,11 @@
                         {
                             SweEngGloss gloss = dictionary[i];
                             if (gloss.word_swe == sweWord && gloss.word_eng == engWord)
+                            {
                                 index = i;
+                                dictionary.RemoveAt(index); // TODO: Output message if user tries to remove invalid word
+                            }
                         }
-                        dictionary.RemoveAt(index); // FIXME: Add error handling for trying to remove nonexistant word
                     }
                 }
                 else if (command == "translate")
