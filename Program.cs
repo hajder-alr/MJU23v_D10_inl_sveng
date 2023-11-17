@@ -94,6 +94,11 @@
                 }
                 else if (command == "delete")
                 {
+                    if (dictionary == null)
+                    {
+                        Console.WriteLine("Error: Dictionary is empty, please load a dictionary using 'load'");
+                        continue;
+                    }
                     if (argument.Length == 3)
                     {
                         int index = -1;
@@ -111,7 +116,7 @@
                         Console.Write("Write word in English: ");
                         string engWord = Console.ReadLine();
                         int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++) // FIXME: Add error handling if dictionary is null
+                        for (int i = 0; i < dictionary.Count; i++)
                         {
                             SweEngGloss gloss = dictionary[i];
                             if (gloss.word_swe == sweWord && gloss.word_eng == engWord)
