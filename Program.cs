@@ -33,7 +33,13 @@
                 {
                     if(argument.Length == 2)
                     {
-                        using (StreamReader sr = new StreamReader(argument[1])) // FIXME: System.IO.FileNotFoundException if invalid path
+                        if (!File.Exists(argument[1]) || !Path.HasExtension(argument[1]))
+                        {
+                            Console.WriteLine($"Error: Invalid path '{argument}");
+                            continue;
+                        }
+
+                        using (StreamReader sr = new StreamReader(argument[1])) 
                         {
                             dictionary = new List<SweEngGloss>(); // Empty it!
                             string line = sr.ReadLine();
