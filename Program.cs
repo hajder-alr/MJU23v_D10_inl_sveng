@@ -15,6 +15,44 @@
                 string[] words = line.Split('|');
                 this.word_swe = words[0]; this.word_eng = words[1];
             }
+
+            public static void LoadFile(string[] argument, string defaultFile)
+            {
+                if (argument.Length == 2)
+                {
+                    if (!File.Exists(argument[1]) || !Path.HasExtension(argument[1]))
+                    {
+                        Console.WriteLine($"Error: Invalid path '{argument[1]}");
+                        return;
+                    }
+
+                    using (StreamReader sr = new StreamReader(argument[1]))
+                    {
+                        dictionary = new List<SweEngGloss>(); // Empty it!
+                        string line = sr.ReadLine();
+                        while (line != null)
+                        {
+                            SweEngGloss gloss = new SweEngGloss(line);
+                            dictionary.Add(gloss);
+                            line = sr.ReadLine();
+                        }
+                    }
+                }
+                else if (argument.Length == 1)
+                {
+                    using (StreamReader sr = new StreamReader(defaultFile))
+                    {
+                        dictionary = new List<SweEngGloss>(); // Empty it!
+                        string line = sr.ReadLine();
+                        while (line != null)
+                        {
+                            SweEngGloss gloss = new SweEngGloss(line);
+                            dictionary.Add(gloss);
+                            line = sr.ReadLine();
+                        }
+                    }
+                }
+            }
         }
         static void Main(string[] args)
         {
@@ -32,40 +70,7 @@
                 }
                 else if (command == "load")
                 {
-                    if(argument.Length == 2)
-                    {
-                        if (!File.Exists(argument[1]) || !Path.HasExtension(argument[1]))
-                        {
-                            Console.WriteLine($"Error: Invalid path '{argument}");
-                            continue;
-                        }
-
-                        using (StreamReader sr = new StreamReader(argument[1])) 
-                        {
-                            dictionary = new List<SweEngGloss>(); // Empty it!
-                            string line = sr.ReadLine();
-                            while (line != null)
-                            {
-                                SweEngGloss gloss = new SweEngGloss(line);
-                                dictionary.Add(gloss);
-                                line = sr.ReadLine();
-                            }
-                        }
-                    }
-                    else if(argument.Length == 1)
-                    {
-                        using (StreamReader sr = new StreamReader(defaultFile))
-                        {
-                            dictionary = new List<SweEngGloss>(); // Empty it!
-                            string line = sr.ReadLine();
-                            while (line != null)
-                            {
-                                SweEngGloss gloss = new SweEngGloss(line);
-                                dictionary.Add(gloss);
-                                line = sr.ReadLine();
-                            }
-                        }
-                    }
+                    SweEngGloss.LoadFile(argument, defaultFile);
                 }
                 else if (command == "list")
                 {
@@ -145,7 +150,7 @@
                     }
                     if (argument.Length == 2)
                     {
-                        foreach(SweEngGloss gloss in dictionary) // FIXME: System.NullReferenceException
+                        foreach(SweEngGloss gloss in dictionary)
                         {
                             if (gloss.word_swe == argument[1])
                                 Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
