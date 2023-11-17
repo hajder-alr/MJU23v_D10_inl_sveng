@@ -62,7 +62,12 @@
                 }
                 else if (command == "list")
                 {
-                    foreach(SweEngGloss gloss in dictionary) // FIXME: Add error handling if dictionary is null
+                    if (dictionary == null)
+                    {
+                        Console.WriteLine("Error: Dictionary is empty, please load a dictionary using 'load'");
+                        continue;
+                    }
+                    foreach(SweEngGloss gloss in dictionary)
                     {
                         Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
                     }
@@ -114,7 +119,7 @@
                 {
                     if (argument.Length == 2)
                     {
-                        foreach(SweEngGloss gloss in dictionary)
+                        foreach(SweEngGloss gloss in dictionary) // FIXME: System.NullReferenceException
                         {
                             if (gloss.word_swe == argument[1])
                                 Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
