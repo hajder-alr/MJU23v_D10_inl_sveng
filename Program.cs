@@ -137,6 +137,11 @@
                 }
                 else if (command == "translate")
                 {
+                    if (dictionary == null)
+                    {
+                        Console.WriteLine("Error: Dictionary is empty, please load a dictionary using 'load'");
+                        continue;
+                    }
                     if (argument.Length == 2)
                     {
                         foreach(SweEngGloss gloss in dictionary) // FIXME: System.NullReferenceException
