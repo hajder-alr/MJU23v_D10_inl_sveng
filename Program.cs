@@ -72,8 +72,13 @@
                         Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
                     }
                 }
-                else if (command == "new") // FIXME: Add error handling if dictionary is null
+                else if (command == "new")
                 {
+                    if (dictionary == null)
+                    {
+                        Console.WriteLine("Error: Dictionary is empty, please load a dictionary using 'load'");
+                        continue;
+                    }
                     if (argument.Length == 3)
                     {
                         dictionary.Add(new SweEngGloss(argument[1], argument[2]));
